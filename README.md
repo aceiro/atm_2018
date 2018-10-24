@@ -13,5 +13,6 @@ Atividades   |   [A fazer](https://github.com/aceiro/atm_2018/issues?q=is%3Aissu
 [ATM5](https://github.com/aceiro/atm_2018/issues/8)         | ✔          | ✖                 | ✖                     | 
 [ATM6](https://github.com/aceiro/atm_2018/issues/9)         | ✔          | ✖                 | ✖                     | 
 [ATM9](https://github.com/aceiro/atm_2018/issues/12)         | ✔          | ✖                 | ✖                     |
+[ATM10](https://github.com/aceiro/atm_2018/issues/13)         | ✖          | ✔                 | ✖                     |
 
 O objetivo dessa Tarefa (Webquest) visa a melhoria para o Portal Transparência através da criação de um sumarizador de dados com base em uma sequencia de subtarefas descritas a seguir. 
