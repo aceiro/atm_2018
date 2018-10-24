@@ -2,7 +2,7 @@
 Atividade Muldisciplinar iniciada no dia 24/10/2018 ( WebQuest )
 
 
-Atividades   |   A fazer  |      Fazendo       |          Feito        | Responsável
+Atividades   |   [A fazer](https://github.com/aceiro/atm_2018/issues?q=is%3Aissue+is%3Aopen+label%3ATODO)  |      [Fazendo](https://github.com/aceiro/atm_2018/issues?q=is%3Aissue+is%3Aopen+label%3ADOING)       |          Feito        | Responsável
 ------------ | ---------- | ------------------ | --------------------- | -----------
 ATM1         | ✔          | ✖                 | ✖                     | 
 ATM2         | ✔          | ✖                 | ✖                     | 
