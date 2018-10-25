@@ -4,7 +4,6 @@ Atividade Muldisciplinar iniciada no dia 24/10/2018 ( WebQuest )
 
 Atividades   |   [A fazer](https://github.com/aceiro/atm_2018/issues?q=is%3Aissue+is%3Aopen+label%3ATODO)  |      [Fazendo](https://github.com/aceiro/atm_2018/issues?q=is%3Aissue+is%3Aopen+label%3ADOING)       |          [Feito](https://github.com/aceiro/atm_2018/labels/DONE)        | Responsável
 ------------ | ---------- | ------------------ | --------------------- | -----------
-[ATM1](https://github.com/aceiro/atm_2018/issues/1)         | -          | ✔                 | ✖                     | [Amanda](https://github.com/manddynhaa) 
 [ATM2](https://github.com/aceiro/atm_2018/issues/2)         | ✔          | ✖                 | ✖                     | 
 [ATM3.1](https://github.com/aceiro/atm_2018/issues/3)       | ✔          | ✖                 | ✖                     | 
 [ATM3.2](https://github.com/aceiro/atm_2018/issues/4)       | ✔          | ✖                 | ✖                     | 
