@@ -17,8 +17,6 @@ Atividades   |   [Para Fazer](https://github.com/aceiro/atm_2018/issues?q=is%3Ai
 
 O objetivo dessa Tarefa (Webquest) visa a melhoria para o Portal Transparência através da criação de um sumarizador de dados com base em uma sequencia de subtarefas descritas a seguir. 
 
-regex para encontrar [0-3][0-9][/][0-1][0-9][/]\b[1-9][0-9]{3}\b
-
 ### Cronograma
 
 A Tabela a seguir ilustra o processo básico de desenvolvimento de software que iremos usar até o dia do evento (e posteriormente) para a Atividade Multidisciplinar. Para conhecer mais, acess o link [Cultura Ágil](https://www.culturaagil.com.br/kanban-do-inicio-ao-fim/)
