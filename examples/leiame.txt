@@ -1,0 +1,3 @@
+Para compilar o projeto completo use a linha abaixo:
+
+gcc -std=c99 -o sumarizador main.c func_somar.c func_subtrair.c func_multiplicar.c func_dividir.c 

@@ -1,0 +1,9 @@
+/* Building strdup -  
+char *strdup (const char *s)
+{
+    char *p = malloc (strlen (s) + 1);   // allocate memory
+    if (p != NULL)
+        strcpy (p,s);                    // copy string
+    return p;                            // return the memory
+}
+*/
