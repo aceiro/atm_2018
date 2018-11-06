@@ -12,6 +12,9 @@ int main(void)
     int cont = 0;
     char *p = strtok(sFrase, " ");
     char *array[500];
+    //float valor = atof(*array);
+    char *ptr;
+    float num, media;
 
     while (p)
     {
@@ -22,9 +25,30 @@ int main(void)
       cont++;
     }
 
-    printf("%s\n", array[cont-1]);
-    printf("%s\n", array[cont-2]);
-    printf("%s\n", array[cont-3]); 
+    //printf("%s\n", array[cont-1]);
+    //printf("%s\n", array[cont-2]);
+    //printf("%s\n", array[cont-3]);
+
+    ptr = strpbrk(array[cont-3], ","); //retorna um ponteiro para a posição da string "," 
+    if(ptr != NULL)   *ptr = '.';          //faz a substituição da ',' por '.'  
+    num = atof(array[cont-3]);       //converte string para float printf("num = %f", num);
+
+    printf("\nESTE É O VALOR EMPENHADO --> %s", array[cont-3] );
+
+    ptr = strpbrk(array[cont-2], ","); //retorna um ponteiro para a posição da string "," 
+    if(ptr != NULL)   *ptr = '.';          //faz a substituição da ',' por '.'  
+    num = atof(array[cont-2]);       //converte string para float printf("num = %f", num);
+
+    printf("\nESTE É O VALOR LiQUIDADO --> %s", array[cont-2] );
+
+    ptr = strpbrk(array[cont-1], ","); //retorna um ponteiro para a posição da string "," 
+    if(ptr != NULL)   *ptr = '.';          //faz a substituição da ',' por '.'  
+    num = atof(array[cont-1]);       //converte string para float printf("num = %f", num);
+
+    printf("\nESTE É O VALOR PAGO --> %s\n", array[cont-1] );
    
    return 0;
 }
+
+
+
