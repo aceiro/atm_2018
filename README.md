@@ -43,7 +43,4 @@ A Tabela a seguir ilustra o processo básico de desenvolvimento de software que 
 
 
 ([0-3][\d]/[0-1][\d]/[1-2][\d][\d][\d])([^[\d]*)(([\d+.]+\,[\d][1,2]).+)
-
-1329-000/2018 01/10/2018 FOLHA DE PAGAMENTO DE FERIAS SECRETARIA DA CAMARA SECRETARIA DA CAMARA AÇÃO LEGISLATIVA Outros/Não Aplicável 36666.499,12 3.499,12 3.499,12
-
-1466-000/2018 30/10/2018 LUCIANA ANTONIA ENGLE SECRETARIA DA CAMARA SECRETARIA DA CAMARA AÇÃO LEGISLATIVA Outros/Não Aplicável 100,00 100,00 100,00
+([0-9]*/[0-9]+/[0-9]*)([^[0-9]*)([0-9]+.+)
