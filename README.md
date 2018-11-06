@@ -43,4 +43,5 @@ A Tabela a seguir ilustra o processo básico de desenvolvimento de software que 
 
 
 ([0-3][\d]/[0-1][\d]/[1-2][\d][\d][\d])([^[\d]*)(([\d+.]+\,[\d][1,2]).+)
+
 ([0-9]*/[0-9]+/[0-9]*)([^[0-9]*)([0-9]+.+)
