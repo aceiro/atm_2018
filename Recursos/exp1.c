@@ -4,48 +4,55 @@
 #include <string.h>
 #include <stdlib.h>
 
- 
+#define MAX_LINE 500
+
+double strtodouble (char *array[MAX_LINE], int position){
+    double num;
+    char *ptr;
+
+    ptr = strpbrk(array[position], ","); //retorna um ponteiro para a posição da string "," 
+    if(ptr != NULL)   *ptr = '.';          //faz a substituição da ',' por '.'  
+    num = atof(array[position]);       //converte string para float printf("num = %f", num);
+
+    return num;
+
+}
+
 int main(void)
 {
 
     char sFrase[]="1337-000/2018 01/10/2018 KI BARATO MERCEARIA DE DESCONT SECRETARIA DA CAMARA SECRETARIA DA CAMARA AÇÃO LEGISLATIVA Dispensa - Isento Compras e Serviços 343,50 343,40 343,30";
-    int cont = 0;
+    int count = 0;
     char *p = strtok(sFrase, " ");
     char *array[500];
     //float valor = atof(*array);
     char *ptr;
-    float num, media;
+    double num1, num2, num3;
 
     while (p)
     {
-      array[cont] = p;
+      array[count] = p;
 
       p = strtok (NULL, " ");
 
-      cont++;
+      count++;
     }
 
     //printf("%s\n", array[cont-1]);
     //printf("%s\n", array[cont-2]);
-    //printf("%s\n", array[cont-3]);
+    //printf("%s\n", array[cont-3]);   
 
-    ptr = strpbrk(array[cont-3], ","); //retorna um ponteiro para a posição da string "," 
-    if(ptr != NULL)   *ptr = '.';          //faz a substituição da ',' por '.'  
-    num = atof(array[cont-3]);       //converte string para float printf("num = %f", num);
+    //array[cont-3] = 343,50
+    //ptr=array[cont-3][3]
 
-    printf("\nESTE É O VALOR EMPENHADO --> %s", array[cont-3] );
+    num1 = strtodouble(array, count-3);
+    printf("\nESTE É O VALOR EMPENHADO --> %2.2f", num1 );
 
-    ptr = strpbrk(array[cont-2], ","); //retorna um ponteiro para a posição da string "," 
-    if(ptr != NULL)   *ptr = '.';          //faz a substituição da ',' por '.'  
-    num = atof(array[cont-2]);       //converte string para float printf("num = %f", num);
+    num2 = strtodouble(array, count-2);
+    printf("\nESTE É O VALOR LiQUIDADO --> %2.2f", num2 );
 
-    printf("\nESTE É O VALOR LiQUIDADO --> %s", array[cont-2] );
-
-    ptr = strpbrk(array[cont-1], ","); //retorna um ponteiro para a posição da string "," 
-    if(ptr != NULL)   *ptr = '.';          //faz a substituição da ',' por '.'  
-    num = atof(array[cont-1]);       //converte string para float printf("num = %f", num);
-
-    printf("\nESTE É O VALOR PAGO --> %s\n", array[cont-1] );
+    num3 = strtodouble(array, count-3);
+    printf("\nESTE É O VALOR PAGO --> %2.2f\n", num3 );
    
    return 0;
 }
