@@ -32,7 +32,7 @@ int main(void)
     char *array[500];
     //float valor = atof(*array);
     char *ptr;
-    double num1, num2, num3, soma;
+    double num1, num2, num3;
 
     while (p)
     {
@@ -58,10 +58,6 @@ int main(void)
 
     num3 = strtodouble(array, count-1);
     printf("\nESTE É O VALOR PAGO --> %2.2f\n", num3 );
-
-    soma = num1 + num2;
-    printf("soma: %f\n", soma );
-
    
    return 0;
 }
