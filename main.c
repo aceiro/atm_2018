@@ -21,10 +21,14 @@
 #include <stdlib.h>
 #include <string.h>
 #include <strings.h> /* Enable use of the strdup */
+#include <getopt.h>
  
 #define BUFFER_SIZE 1024
 #define MATRIX_SIZE_C 3
+<<<<<<< HEAD
 #define FIX_BUG_LINE "CÂMARA MUNICIPAL DE RIO CLARO"
+=======
+>>>>>>> 939883b7aab43439f20a470e19a7f06383a41858
 #define CLI_INPUT "--entrada"
 #define CLI_OUTPUT "--saida"
 #define CLI_AVG_ENGAGED "--media-empenhado"
@@ -34,7 +38,10 @@
 #define CLI_HELP "--ajuda"
 
 
+<<<<<<< HEAD
 //int fix_end_of_line(char *read_data[BUFFER_SIZE], int index, int str_column);
+=======
+>>>>>>> 939883b7aab43439f20a470e19a7f06383a41858
 void get_values(char filter[], double l_values[]);
 double strtodouble (char *str_result[BUFFER_SIZE], int position);
 void print_screen_values(int line, int str_line, int column);
@@ -54,14 +61,21 @@ int main(int argc, char *argv[])
     int t_index = 0;
     double l_values[MATRIX_SIZE_C];
     char option = 4;
+<<<<<<< HEAD
     int size_eol = (strlen(FIX_BUG_LINE));
     //int signal_eol = 0;
+=======
+    char parameter[BUFFER_SIZE];
+>>>>>>> 939883b7aab43439f20a470e19a7f06383a41858
 
     /* Variables, if you want to work on reading character, the character of array (optional) */
     char filter[BUFFER_SIZE][BUFFER_SIZE];
     char ch;
     int column = 0;
+<<<<<<< HEAD
     int t_column = 0;
+=======
+>>>>>>> 939883b7aab43439f20a470e19a7f06383a41858
     int str_size = 0;
     int str_line = 0;
     int str_column = 0;
@@ -74,6 +88,7 @@ int main(int argc, char *argv[])
     	return 1;
     }
 
+<<<<<<< HEAD
     if ((strcmp(argv[1], CLI_HELP) != 0) && (strcmp(argv[1], CLI_INPUT) != 0))
     {
         fprintf(stderr, "\n\tFaca assim: %s --parametro <caminho/arquivo> ou %s %s\n\n", argv[0], argv[0], CLI_HELP);
@@ -268,6 +283,182 @@ double strtodouble (char *str_result[BUFFER_SIZE], int position)
 
     for (i = 0; str_result[i] != '\0'; ++i)
     {
+=======
+/*    
+    while((strcmp(argv[1], CLI_HELP) == 0))
+    {
+        fprintf(stderr, "\n\tMensagem de Ajuda...\n\n");
+        return 1;    
+    }
+*/
+    /*
+    if ((argc == 0))
+    {
+    	fprintf(stderr, "\n\tFaca assim: %s --parametro <caminho/arquivo> ou %s %s\n\n", argv[0], argv[0], CLI_HELP);
+    	return 1;
+    }
+    */
+
+    if ((strcmp(argv[1], CLI_HELP) != 0) && (strcmp(argv[1], CLI_INPUT) != 0))
+    {
+        fprintf(stderr, "\n\tFaca assim: %s --parametro <caminho/arquivo> ou %s %s\n\n", argv[0], argv[0], CLI_HELP);
+        return 1;    
+    }
+
+
+    if ((strcmp(argv[1], CLI_HELP) == 0))
+    {
+        fprintf(stderr, "\n\tMensagem de Ajuda...\n\n");
+        return 1;    
+    }
+ 
+    if ((strcmp(argv[1], CLI_INPUT) == 0))
+    { /* Start*/
+        
+        /* Condition: if file or path exists, will be open in read-mode "r" */
+        if ((fp = fopen(argv[2], "r")) == NULL)
+        {
+            //perror("\n\t<path/file>");
+            printf("\n\t<caminho/arquivo>: Caminho (diretorio) ou Arquivo nao encontrados ou omitidos\n\n");
+            return 1;
+        }
+        
+        /* Loop: getting line by line, and inserting into a array and after copied to another array */
+        while (fgets(buffer, sizeof(buffer), fp) != NULL)
+        {
+            read_size = strlen(buffer);
+            /* "strdup" from <strings.h> doing copy of pointer to pointer */
+            read_data[index] = strdup(buffer);
+            index++;
+            line++;
+        }
+
+        //system("clear");
+        /* 2 - Printing content allocated in the Array of Strings (char by char) */
+        for(index = 0; index < line; index++)
+        {
+            str_column = strlen(read_data[index]);   
+            if (read_data[index][0] == '1')
+            {
+                //printf("%d %d ", str_line, str_column);
+                for(column = 0; column < str_column; column++)
+                {
+                    ch = read_data[index][column];
+                    filter[t_index][column] = ch;
+                    //printf("%c", filter[index][column]);
+                }
+                str_line++;
+                t_index++;
+            }
+            //if (index == (line -1))
+                //printf("\n");
+        }
+        
+        for(t_index = 0; t_index < str_line; t_index++)
+        {
+            str_column = strlen(filter[t_index]);
+            //for(column = 0; column < str_column; column++)
+            //{
+                //printf("%c", filter[index][column]);
+            //}
+            get_values(filter[t_index], l_values);
+            for (column = 0; column < MATRIX_SIZE_C;column++)
+            {
+                values[t_index][column]= l_values[column];
+            }
+            //printf("%d -- %s", t_index, filter[t_index]);        
+        }
+
+        print_screen_values(line, str_line, column);
+        average_overall(line, str_line, column, option);
+
+        return 1;
+        
+
+    } /* End*/
+        
+        /*
+        if ((strcmp(argv[3], CLI_AVG_ENGAGED) != 0) || (strcmp(argv[3], CLI_AVG_SETTLED) != 0) || (strcmp(argv[3], CLI_AVG_PAID) != 0))  
+        {
+            return 1;    
+        }
+        */
+/*
+        if ((strcmp(argv[3], CLI_AVG_ENGAGED) == 0))
+        {
+            option = '1';
+            average_overall(line, str_line, column, option);
+            return 1;    
+        }
+
+        if ((strcmp(argv[3], CLI_AVG_SETTLED) == 0))
+        {
+            option = '2';
+            average_overall(line, str_line, column, option);
+            return 1;    
+        }
+
+        if ((strcmp(argv[3], CLI_AVG_PAID) == 0))
+        {
+            option = '3';
+            average_overall(line, str_line, column, option);
+            return 1;    
+        }
+
+        if ((strcmp(argv[3], CLI_AVG_OVERALL) == 0))
+        {
+            option = '4';
+            average_overall(line, str_line, column, option);
+            return 1;    
+        }
+
+*/      
+
+    fclose(fp);
+    return 0;
+}
+
+void get_values(char filter[], double l_values[])
+{    
+    int count = 0;
+    char *space = strtok(filter, " ");
+    char *str_result[BUFFER_SIZE];
+    //double a_values[3];
+    //char option = '\0';
+    int aux_count;
+    double value_engaged;
+    double value_settled;
+    double value_paid;
+
+    while (space)
+    {
+        str_result[count] = space;
+        space = strtok (NULL, " ");
+        count++;
+    }
+    
+    value_engaged = strtodouble(str_result, count - 3);
+    //printf(" %2.2f", value_engaged);    
+    value_settled = strtodouble(str_result, count - 2);
+    //printf(" %2.2f", value_settled);
+    value_paid = strtodouble(str_result, count - 1);
+    //printf(" %2.2f", value_paid);
+    //printf("\n");
+
+    l_values[0] = value_engaged; 
+    l_values[1] = value_settled;
+    l_values[2] = value_paid;
+
+}
+
+double strtodouble (char *str_result[BUFFER_SIZE], int position)
+{
+    char temp[BUFFER_SIZE];
+    int i, pos_temp = 0;
+
+    for (i = 0; str_result[i] != '\0'; ++i)
+    {
+>>>>>>> 939883b7aab43439f20a470e19a7f06383a41858
         if (str_result[position][i] == ',')
         { //se é virgula troca por ponto
             temp[pos_temp++] = '.';
