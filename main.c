@@ -6,7 +6,9 @@
  * argv[0] - ./program
  * #define CLI_INPUT "--entrada" argv[1] (if or loop) 
  * argv[2] - file.csv
- * #define CLI_OUTPUT "--saida" empty
+ * #define CLI_OUTPUT "--saida" argv[4]
+ * #define CLI_FILE_TYPE_CSV "--formato-csv" argv[5]
+ * #define CLI_FILE_TYPE_TXT "--formato-txt" argv[5]
  * #define CLI_AVG_ENGAGED "--media-empenhado" argv[3] (if or loop)
  * #define CLI_AVG_SETTLED "--media-liquidado" argv[3] (if or loop)
  * #define CLI_AVG_PAID "--media-valor-pago" argv[3] (if or loop)
@@ -27,6 +29,8 @@
 #define FIX_BUG_LINE "CÂMARA MUNICIPAL DE RIO CLARO"
 #define CLI_INPUT "--entrada"
 #define CLI_OUTPUT "--saida"
+#define CLI_FILE_TYPE_CSV "--formato-csv"
+#define CLI_FILE_TYPE_TXT "--formato-txt"
 #define CLI_AVG_ENGAGED "--media-empenhado"
 #define CLI_AVG_SETTLED "--media-liquidado"
 #define CLI_AVG_PAID "--media-valor-pago"
@@ -39,8 +43,10 @@ void get_values(char filter[], double l_values[]);
 double strtodouble (char *str_result[BUFFER_SIZE], int position);
 void print_screen_values(int line, int str_line, int column);
 void average_overall(int line, int str_line, int column, char option);
+void write_to_file(double avg_value_engaged, double avg_value_settled, double avg_value_paid, char type_file);
 
 double values[BUFFER_SIZE][MATRIX_SIZE_C];
+char type_file = '0'; 
 
 int main(int argc, char *argv[])
 {
@@ -77,7 +83,7 @@ int main(int argc, char *argv[])
     if ((strcmp(argv[1], CLI_HELP) != 0) && (strcmp(argv[1], CLI_INPUT) != 0))
     {
         fprintf(stderr, "\n\tFaca assim: %s --parametro <caminho/arquivo> ou %s %s\n\n", argv[0], argv[0], CLI_HELP);
-        return 1;    
+        return 1;
     }
 
 
@@ -143,15 +149,10 @@ int main(int argc, char *argv[])
             }
             //printf("%d -- %s", t_index, filter[t_index]);        
         }
-
-        print_screen_values(line, str_line, column);
-        //average_overall(line, str_line, column, option);
-
-        //return 1;
         
-
     } /* End: Data manipulation routines */
 
+    
     printf("\n%i\n", argc);
     
     for(int i = 0; i < argc; i++)
@@ -159,12 +160,15 @@ int main(int argc, char *argv[])
         printf("argv[%i] = %s\n", i, argv[i]);
     }
     
+    
 
     if (argc <= 3)
+    {
+        print_screen_values(line, str_line, column);
         return 1;
+    }
     else
     {
-
 
         while(argc > 3)
         {  /* Start: choice of averages */
@@ -172,6 +176,45 @@ int main(int argc, char *argv[])
             if ((strcmp(argv[3], CLI_AVG_ENGAGED) == 0))
             {
                 option = '1';
+                if (argc == 5)
+                {
+                   if ((strcmp(argv[4], CLI_OUTPUT) != 0))
+                   {
+                       fprintf(stderr, "\n\tParametro desconhecido ou nao digitado, use %s ou %s %s\n\n", CLI_OUTPUT, argv[0], CLI_HELP);
+                       return 1;
+                   }
+                   
+                   if ((strcmp(argv[4], CLI_OUTPUT) == 0))
+                   { /* STOPED HERE AT 2018 11 19 -- Troubles: don't run down routines*/
+                       printf("\nPassei por aqui\n");
+                       while(argc >= 5)
+                       {
+                           fprintf(stderr, "\n\tObrigatoriamente necessario apos %s, o uso de %s ou %s. Em caso de duvida %s %s\n\n", CLI_OUTPUT, CLI_FILE_TYPE_CSV, CLI_FILE_TYPE_TXT, argv[0], CLI_HELP);
+                           return 1;
+                       }
+                   }
+                   
+                   if ((strcmp(argv[5], CLI_FILE_TYPE_CSV) != 0) && (strcmp(argv[5], CLI_FILE_TYPE_TXT) != 0))
+                   {
+                        fprintf(stderr, "\n\tObrigatoriamente necessario apos %s, o uso de %s ou %s. Em caso de duvida %s %s\n\n", CLI_OUTPUT, CLI_FILE_TYPE_CSV, CLI_FILE_TYPE_TXT, argv[0], CLI_HELP);
+                        return 1;
+                   }
+
+                   if ((strcmp(argv[5], CLI_FILE_TYPE_CSV) == 0))
+                   {
+                        fprintf(stderr, "\n\tEscolhido %s\n\n", CLI_FILE_TYPE_CSV);
+                        return 1;
+                   }
+                       
+                   if ((strcmp(argv[5], CLI_FILE_TYPE_TXT) == 0))
+                   {
+                        fprintf(stderr, "\n\tEscolhido %s\n\n", CLI_FILE_TYPE_TXT);
+                        return 1;
+                   }
+
+                   
+                }
+
                 average_overall(line, str_line, column, option);
                 return 1;    
             }
@@ -193,6 +236,7 @@ int main(int argc, char *argv[])
             if ((strcmp(argv[3], CLI_AVG_OVERALL) == 0))
             {
                 option = '4';
+
                 average_overall(line, str_line, column, option);
                 return 1;    
             }
@@ -200,14 +244,16 @@ int main(int argc, char *argv[])
             
             if ((strcmp(argv[3], CLI_AVG_ENGAGED) != 0) || (strcmp(argv[3], CLI_AVG_SETTLED) != 0) || (strcmp(argv[3], CLI_AVG_PAID) != 0))  
             {
-                printf("\ncheguei aqui\n");
+                printf("\n\tArgumentos Inválidos. Use %s %s\n\n", argv[0], CLI_HELP);
                 return 1;    
             }
             
         } /* End: choice of averages */
         return 1;
     }
-    
+
+
+
 
     fclose(fp);
     return 0;
@@ -282,8 +328,9 @@ void print_screen_values(int line, int str_line, int column)
         {
             printf("\t\tR$ %2.2f ", values[line][column]);
         }
-        printf("\n");   
+        printf("\n");
     }
+    printf("\n\n");
 
 }
 
@@ -321,35 +368,76 @@ void average_overall(int line, int str_line, int column, char option)
    switch (option)
    {
         case '1':
+            //system("clear");
             printf("\n\n\t+\tMedia - Valor Empenhado\t\tR$ %2.2f\n\n", avg_value_engaged);
             break;
         
         case '2':
+            system("clear");
             printf("\n\n\t+\tMedia - Valor Liquidado\t\tR$ %2.2f\n\n", avg_value_settled);
             break;
 
         case '3':
+            system("clear");
             printf("\n\n\t+\tMedia - Valor Pago\t\tR$ %2.2f\n\n", avg_value_paid);
             break;
         
         case '4':
+            system("clear");
+            /*
             printf("\n");
             printf("\n\t+\tMedia - Valor Empenhado\t\tR$ %2.2f\n", avg_value_engaged);
             printf("\n\t+\tMedia - Valor Liquidado\t\tR$ %2.2f\n", avg_value_settled);
             printf("\n\t+\tMedia - Valor Pago\t\tR$ %2.2f\n", avg_value_paid);
             printf("\n");
+            */
+            write_to_file(avg_value_engaged, avg_value_settled, avg_value_paid, type_file);
             break;
    
         default:
+            system("clear");
             printf("\n\n\t+\tErro... \n\n");
             break;
    }
-    /*
-            printf("\n");
-            printf("\n\t+\tMedia - Valor Empenhado\t\tR$ %2.2f\n", avg_value_engaged);
-            printf("\n\t+\tMedia - Valor Liquidado\t\tR$ %2.2f\n", avg_value_settled);
-            printf("\n\t+\tMedia - Valor Pago\t\tR$ %2.2f\n", avg_value_paid);
-            printf("\n");
-   */
+
+}
+
+void write_to_file(double avg_value_engaged, double avg_value_settled, double avg_value_paid, char type_file)
+{
+
+    FILE * fp_w; /* Pointer (File type) */
+    char *type_file_name = "\0";
+
+    
+    if (type_file == '1') 
+        type_file_name = "file.csv";
+    
+    if (type_file == '2') 
+        type_file_name = "file.txt";
+    
+
+    /* Create / Open file in w (write) mode */
+    /* fopen() return NULL if last operation was unsuccessful */
+    if ((fp_w = fopen(type_file_name, "w")) == NULL)
+    {
+        /* File not created hence exit */
+        printf("\nNao foi possivel criar o Arquivo %s.\n\n", type_file_name);
+        exit(EXIT_FAILURE);
+    }
+
+    fprintf(fp_w, "\nMedias Gerais\n");
+    fprintf(fp_w, "\n\t+\tMedia - Valor Empenhado\t\tR$ %2.2f\n", avg_value_engaged);
+    fprintf(fp_w, "\n\t+\tMedia - Valor Liquidado\t\tR$ %2.2f\n", avg_value_settled);
+    fprintf(fp_w, "\n\t+\tMedia - Valor Pago\t\tR$ %2.2f\n", avg_value_paid);
+    fprintf(fp_w, "\n");
+    
+    /* Close file to save file data */
+    fclose(fp_w);
+
+
+
+    /* Success message */
+    //if ()
+        printf("\n\tArquivo %s criado com Sucesso\n\n", type_file_name);
 
 }
