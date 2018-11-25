@@ -1,6 +1,4 @@
 /*
- * Gismar (31/10/2018)
- * Gismar (11/11/2018)
  * 
  * argc = count parameter's number + 1 (program's name or path is fistr parameter)
  * argv[0] - ./program
@@ -13,9 +11,7 @@
  * #define CLI_AVG_SETTLED "--media-liquidado" argv[3] (if or loop)
  * #define CLI_AVG_PAID "--media-valor-pago" argv[3] (if or loop)
  * #define CLI_AVG_OVERALL "--media-geral" argv[3] (if or loop)
- * #define CLI_HELP "--ajuda" argv[1] (if or loop)
- * 
- * 
+ * #define CLI_HELP "--ajuda" argv[1] (if or loop) 
  * 
 */
 
@@ -45,7 +41,10 @@ void average_overall(int line, int str_line, int column, char option);
 void write_to_file_all(double avg_value_engaged, double avg_value_settled, double avg_value_paid, char type_file);
 void write_to_file(double avg_value_x, char option, char type_file);
 
+/* Global Array of Values */
 double values[BUFFER_SIZE][MATRIX_SIZE_C];
+
+/* Global Variable to chose averages */
 char type_file = '0'; 
 
 int main(int argc, char *argv[])
@@ -61,8 +60,7 @@ int main(int argc, char *argv[])
     double l_values[MATRIX_SIZE_C];
     char option = 0;
     int size_eol = (strlen(FIX_BUG_LINE));
-    //int signal_eol = 0;
-
+    
     /* Variables, if you want to work on reading character, the character of array (optional) */
     char filter[BUFFER_SIZE][BUFFER_SIZE];
     char ch;
@@ -135,32 +133,16 @@ int main(int argc, char *argv[])
         
         for(t_index = 0; t_index < str_line; t_index++)
         {
-            str_column = strlen(filter[t_index]);
-            
-            
-            //for(column = 0; column < str_column; column++)
-            //{
-                //printf("%c", filter[index][column]);
-            //}
+            str_column = strlen(filter[t_index]);        
+
             get_values(filter[t_index], l_values);
             for (column = 0; column < MATRIX_SIZE_C;column++)
             {
                 values[t_index][column]= l_values[column];
-            }
-            //printf("%d -- %s", t_index, filter[t_index]);        
+            }      
         }
         
     } /* End: Data manipulation routines */
-
-    /*
-    printf("\n%i\n", argc);
-    
-    for(int i = 0; i < argc; i++)
-    {
-        printf("argv[%i] = %s\n", i, argv[i]);
-    }
-    */
-    
 
     if (argc <= 3)
     {
@@ -169,7 +151,6 @@ int main(int argc, char *argv[])
     }
     else
     {
-
         while(argc > 3)
         {  /* Start: choice of averages */
 
@@ -364,8 +345,6 @@ void get_values(char filter[], double l_values[])
     int count = 0;
     char *space = strtok(filter, " ");
     char *str_result[BUFFER_SIZE];
-    //double a_values[3];
-    //char option = '\0';
     int aux_count;
     double value_engaged;
     double value_settled;
@@ -378,18 +357,13 @@ void get_values(char filter[], double l_values[])
         count++;
     }
     
-    value_engaged = strtodouble(str_result, count - 3);
-    //printf(" %2.2f", value_engaged);    
+    value_engaged = strtodouble(str_result, count - 3);   
     value_settled = strtodouble(str_result, count - 2);
-    //printf(" %2.2f", value_settled);
     value_paid = strtodouble(str_result, count - 1);
-    //printf(" %2.2f", value_paid);
-    //printf("\n");
 
     l_values[0] = value_engaged; 
     l_values[1] = value_settled;
     l_values[2] = value_paid;
-
 }
 
 double strtodouble (char *str_result[BUFFER_SIZE], int position)
@@ -400,18 +374,17 @@ double strtodouble (char *str_result[BUFFER_SIZE], int position)
     for (i = 0; str_result[i] != '\0'; ++i)
     {
         if (str_result[position][i] == ',')
-        { //se é virgula troca por ponto
+        { /* If it's comma exchange to dot */
             temp[pos_temp++] = '.';
         }
         else if (str_result[position][i] != '.')
-        { //se não for ponto coloca o caretere
+        { /* If not dot, put the character */
             temp[pos_temp++] = str_result[position][i];
         }
     }
-    temp[pos_temp] = '\0'; //terminador no novo
+    temp[pos_temp] = '\0'; /* Add terminator "\0" */
 
-    return atof(temp); //atof agora direto no retorno
-
+    return atof(temp); /* Return converted "temp" */
 }
 
 void print_screen_values(int line, int str_line, int column)
@@ -431,7 +404,6 @@ void print_screen_values(int line, int str_line, int column)
         printf("\n");
     }
     printf("\n\n");
-
 }
 
 void average_overall(int line, int str_line, int column, char option)
@@ -511,7 +483,6 @@ void average_overall(int line, int str_line, int column, char option)
             printf("\n\n\t+\tErro... \n\n");
             break;
    }
-
 }
 
 void write_to_file_all(double avg_value_engaged, double avg_value_settled, double avg_value_paid, char type_file)
@@ -525,7 +496,6 @@ void write_to_file_all(double avg_value_engaged, double avg_value_settled, doubl
     
     if (type_file == '2') 
         file_type_name = "arquivo.txt";
-    
 
     /* Create / Open file in w (write) mode */
     if ((fp_w = fopen(file_type_name, "w")) == NULL)
@@ -576,7 +546,6 @@ void write_to_file(double avg_value_x, char option, char type_file)
     if (type_file == '2') 
         file_type_name = "arquivo.txt";
 
-    
     /* Checking option type */
     if (option == '1') 
         file_type_option = "Media - Valor Empenhado";
@@ -587,7 +556,6 @@ void write_to_file(double avg_value_x, char option, char type_file)
     if (option == '3') 
         file_type_option = "Media - Valor Pago";
     
-
     /* Create / Open file in w (write) mode */
     if ((fp_w = fopen(file_type_name, "w")) == NULL)
     {
