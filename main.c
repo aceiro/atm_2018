@@ -32,6 +32,9 @@
 #define CLI_AVG_PAID "--media-valor-pago"
 #define CLI_AVG_OVERALL "--media-geral"
 #define CLI_HELP "--ajuda"
+#define VERSION "Sumarizador ATM2s2018"
+#define PROGRAM_NAME "./sumarizador"
+#define EXAMPLE_PATH_OR_FILE "./Downloads/consolidado_out2018.csv"
 
 
 void get_values(char filter[], double l_values[]);
@@ -40,6 +43,7 @@ void print_screen_values(int line, int str_line, int column);
 void average_overall(int line, int str_line, int column, char option);
 void write_to_file_all(double avg_value_engaged, double avg_value_settled, double avg_value_paid, char type_file);
 void write_to_file(double avg_value_x, char option, char type_file);
+void help_message();
 
 /* Global Array of Values */
 double values[BUFFER_SIZE][MATRIX_SIZE_C];
@@ -74,20 +78,20 @@ int main(int argc, char *argv[])
   
     while(argc == 1)
     {
-        fprintf(stderr, "\n\tFaca assim: %s --parametro <caminho/arquivo> ou %s %s\n\n", argv[0], argv[0], CLI_HELP);
+        fprintf(stderr, "\n\tFaca assim: %s --parametro [caminho/arquivo] ou %s %s\n\n", argv[0], argv[0], CLI_HELP);
     	return 1;
     }
 
     if ((strcmp(argv[1], CLI_HELP) != 0) && (strcmp(argv[1], CLI_INPUT) != 0))
     {
-        fprintf(stderr, "\n\tFaca assim: %s --parametro <caminho/arquivo> ou %s %s\n\n", argv[0], argv[0], CLI_HELP);
+        fprintf(stderr, "\n\tFaca assim: %s --parametro [caminho/arquivo] ou %s %s\n\n", argv[0], argv[0], CLI_HELP);
         return 1;
     }
 
 
     if ((strcmp(argv[1], CLI_HELP) == 0))
     {
-        fprintf(stderr, "\n\tMensagem de Ajuda...\n\n");
+        help_message();
         return 1;    
     }
  
@@ -98,7 +102,7 @@ int main(int argc, char *argv[])
         if ((fp = fopen(argv[2], "r")) == NULL)
         {
             //perror("\n\t<path/file>");
-            printf("\n\t<caminho/arquivo>: Caminho (diretorio) ou Arquivo nao encontrados ou omitidos\n\n");
+            printf("\n\t[caminho/arquivo]: Caminho (diretorio) ou Arquivo nao encontrados ou omitidos\n\n");
             return 1;
         }
         
@@ -585,4 +589,44 @@ void write_to_file(double avg_value_x, char option, char type_file)
 
     /* Success message */
     printf("\n\tArquivo %s criado com Sucesso\n\n", file_type_name);
+}
+
+void help_message()
+{
+    system("clear");
+    printf("\n\tArea de Ajuda - Programa %s.\n", VERSION);
+
+    printf("\n\tLista de Opcoes:");
+    printf("\n\t\t%s\t\t\t\tImprime na tela mensagem de ajuda.", CLI_HELP);
+    printf("\n\t\t%s\t\t\tOpcao obrigatoria para receber [caminho/arquivo].", CLI_INPUT);
+    printf("\n\t\t%s\t\tImprime na tela Media Empenhada.", CLI_AVG_ENGAGED);
+    printf("\n\t\t%s\t\tImprime na tela Media Liquidado.", CLI_AVG_SETTLED);
+    printf("\n\t\t%s\t\tImprime na tela Media Empenhada.", CLI_AVG_ENGAGED);
+    printf("\n\t\t%s\t\tImprime na tela Media Valor Pago.", CLI_AVG_PAID);
+    printf("\n\t\t%s\t\t\tImprime na tela Media Geral.", CLI_AVG_OVERALL);
+    printf("\n\t\t%s\t\t\t\tOpcao obrigatoria para imprimir as Medias em Arquivo.", CLI_OUTPUT);
+    printf("\n\t\t%s\t\t\tImprime em Arquivo (arquivo.csv) a media repassada.", CLI_FILE_TYPE_CSV);
+    printf("\n\t\t%s\t\t\tImprime em Arquivo (arquivo.txt) a media repassada.", CLI_FILE_TYPE_TXT);
+    printf("\n");
+
+    printf("\n\tExemplos de uso: ");
+    printf("\n\t\t%s %s %s", PROGRAM_NAME, CLI_INPUT, EXAMPLE_PATH_OR_FILE);
+    printf("\n\t\t%s %s %s %s", PROGRAM_NAME, CLI_INPUT, EXAMPLE_PATH_OR_FILE, CLI_AVG_OVERALL);
+    printf("\n\t\t%s %s %s %s %s %s", PROGRAM_NAME, CLI_INPUT, EXAMPLE_PATH_OR_FILE, CLI_AVG_PAID, CLI_OUTPUT, CLI_FILE_TYPE_CSV);
+    printf("\n\t\t%s %s", PROGRAM_NAME, CLI_HELP);
+    printf("\n");
+
+    printf("\n\tUso: %s %s", PROGRAM_NAME, CLI_HELP);
+    printf("\n\t\tImprime mensagem de Ajuda na tela. Nao requer outro opcao.");
+    printf("\n\n\tUso: %s %s [caminho/arquivo]", PROGRAM_NAME, CLI_INPUT);
+    printf("\n\t\tAbre arquivo e imprime valores na tela. Uso obrigatório da opcao [%s] antes do arquivo a ser lido.", CLI_INPUT);
+    printf("\n\n\tUso: %s %s [caminho/arquivo] %s ou %s ou %s ou %s", PROGRAM_NAME, CLI_INPUT, CLI_AVG_ENGAGED, CLI_AVG_SETTLED, CLI_AVG_PAID, CLI_AVG_OVERALL);
+    printf("\n\t\tImprime a Media na tela (correspondente a opcao solicitada / tipo de media)");
+    printf("\n\n\tUso: %s %s [caminho/arquivo] [alguma opcao de media] %s %s ou %s", PROGRAM_NAME, CLI_INPUT, CLI_OUTPUT, CLI_FILE_TYPE_CSV, CLI_FILE_TYPE_TXT);
+    printf("\n\t\tImprime a Media em um arquivo nas pasta local (correspondente a opcao solicitada / tipo de arquivo)");
+    printf("\n\n");
+
+    printf("\n\n\tPressione qualquer tecla para sair");
+    getchar();
+    system("clear");
 }
