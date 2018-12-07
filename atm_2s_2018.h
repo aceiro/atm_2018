@@ -187,7 +187,7 @@ void average_overall(int line, int str_line, int column, char option) {
 
   default:
     system("clear");
-    printf("\n\n\t+\tErro... \n\n");
+    printf("\n\n\t+\tError... \n\n");
     break;
   }
 }
