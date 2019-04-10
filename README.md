@@ -21,7 +21,7 @@ O objetivo dessa Tarefa (Webquest) visa a melhoria para o Portal Transparência 
 
 A Tabela a seguir ilustra o processo básico de desenvolvimento de software que iremos usar até o dia do evento (e posteriormente) para a Atividade Multidisciplinar. Para conhecer mais, acess o link [Cultura Ágil](https://www.culturaagil.com.br/kanban-do-inicio-ao-fim/)
 
-| Data | Fase (Processo) |
+| Data | Fase |
 | ------ | ------ |
 | 24/10/2018 | Definição geral dos requisitos e atividades do GitHub e Kanban |
 | 25/10/2018 até 30/10/2018| Desenvolvimento |
