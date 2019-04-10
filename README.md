@@ -1,4 +1,4 @@
-# Atividade Muldisciplinar iniciada no dia 24/10/2018 ( WebQuest )
+# ATM - 2018
 
 
 
@@ -33,15 +33,9 @@ A Tabela a seguir ilustra o processo básico de desenvolvimento de software que 
 | 14/11/2018 | Apresentação |
 
 
-### Licença
-
-
 ### Fontes
-- [WebQuest](http://ftprc.asser.com.br/~eantonio/arquivo/atm/ATIVIDADES_MULTIDISCIPLINARES_2_2018.pdf)
+- [WebQuest em PDF](http://ftprc.asser.com.br/~eantonio/arquivo/atm/ATIVIDADES_MULTIDISCIPLINARES_2_2018.pdf)
 - [FTP da Ativiade Multidisciplinar 2018](http://ftprc.asser.com.br/~eantonio/atm.html)
 
 
 
-([0-3][\d]/[0-1][\d]/[1-2][\d][\d][\d])([^[\d]*)(([\d+.]+\,[\d][1,2]).+)
-
-([0-9]*/[0-9]+/[0-9]*)([^[0-9]*)([0-9]+.+)
